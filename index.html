@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101b18">
+    <meta
+      name="description"
+      content="Challenge the computer to a quick card battle. First to five points wins."
+    >
+    <title>Card Duel — A head-to-head card battle</title>
+    <link rel="preconnect" href="https://deckofcardsapi.com">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="site-header">
+        <a class="brand" href="./index.html" aria-label="Card Duel home">
+          <span class="brand-mark" aria-hidden="true">♠</span>
+          <span>CARD <span class="brand-accent">DUEL</span></span>
+        </a>
+        <span class="header-note">A head-to-head card battle</span>
+      </header>
+
+      <section class="landing panel" id="landing" aria-labelledby="landing-title">
+        <div class="hero-cards" aria-hidden="true">
+          <span class="mini-card mini-card--red">♥</span>
+          <span class="mini-card mini-card--gold">♠</span>
+          <span class="mini-card mini-card--red">♦</span>
+        </div>
+        <p class="eyebrow"><span class="eyebrow-dot"></span> Shuffle up and challenge the house</p>
+        <h1 id="landing-title">One deck.<br><span>One winner.</span></h1>
+        <p class="intro">
+          Draw your cards, outplay the computer, and be the first to claim five points.
+        </p>
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon feature-icon--gold" aria-hidden="true">♛</span>
+            <div>
+              <h2>First to five</h2>
+              <p>Win a point every round</p>
+            </div>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon feature-icon--green" aria-hidden="true">♣</span>
+            <div>
+              <h2>Aces are high</h2>
+              <p>Suits settle a tie</p>
+            </div>
+          </article>
+        </div>
+        <button class="button button--primary button--large" id="new-game-button" type="button">
+          <span>New game</span>
+          <span class="button-arrow" aria-hidden="true">→</span>
+        </button>
+        <p class="api-note">Powered by the Deck of Cards API</p>
+        <div class="error-message" id="landing-error" role="alert" hidden>
+          <p class="error-text"></p>
+          <button class="button button--retry" type="button">Try again</button>
+        </div>
+      </section>
+
+      <section class="game" id="game" aria-labelledby="game-title" hidden>
+        <div class="game-heading">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-dot"></span> The table</p>
+            <h1 id="game-title">Your next move</h1>
+          </div>
+          <div class="round-counter">
+            <span>Round</span>
+            <strong id="round-number">1</strong>
+          </div>
+        </div>
+
+        <section class="scoreboard" aria-label="Scoreboard">
+          <div class="score-player">
+            <div class="player-details">
+              <span class="player-icon player-icon--you" aria-hidden="true">♙</span>
+              <span><strong>You</strong><small>Player</small></span>
+            </div>
+            <strong class="score-number" id="player-score" aria-label="Your score">0</strong>
+          </div>
+          <div class="score-player score-player--computer">
+            <div class="player-details">
+              <span class="player-icon player-icon--cpu" aria-hidden="true">♛</span>
+              <span><strong>CPU</strong><small>Computer</small></span>
+            </div>
+            <strong class="score-number" id="computer-score" aria-label="Computer score">0</strong>
+          </div>
+        </section>
+
+        <section class="table" aria-label="Current round cards">
+          <div class="table-inset">
+            <article class="card-side" id="player-side">
+              <h2>You <span class="winner-mark" aria-hidden="true">✦</span></h2>
+              <div class="playing-card" id="player-card" aria-label="Your card">
+                <div class="card-back" aria-hidden="true"><span>♠</span></div>
+              </div>
+              <p class="card-label" id="player-card-label">Waiting for a card</p>
+            </article>
+
+            <div class="versus" aria-hidden="true">
+              <span>VS</span>
+              <small>DUEL</small>
+            </div>
+
+            <article class="card-side" id="computer-side">
+              <h2>Computer <span class="winner-mark" aria-hidden="true">✦</span></h2>
+              <div class="playing-card" id="computer-card" aria-label="Computer card">
+                <div class="card-back" aria-hidden="true"><span>♠</span></div>
+              </div>
+              <p class="card-label" id="computer-card-label">Waiting for a card</p>
+            </article>
+          </div>
+          <p class="round-result" id="round-result" role="status" aria-live="polite">
+            Shuffling the deck…
+          </p>
+        </section>
+
+        <div class="error-message game-error" id="game-error" role="alert" hidden>
+          <p class="error-text"></p>
+          <button class="button button--retry" type="button">Try again</button>
+        </div>
+
+        <div class="game-actions">
+          <button class="button button--primary button--large" id="deal-button" type="button" disabled>
+            <span>Deal next round</span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="rules-note">Aces high <span>·</span> ♠ &gt; ♥ &gt; ♦ &gt; ♣ <span>·</span> First to 5 wins</p>
+          <p class="deck-note"><span id="cards-remaining">52</span> cards remaining in the deck</p>
+        </div>
+        <button class="text-button" id="play-again-button" type="button" hidden>Play again</button>
+      </section>
+
+      <footer class="site-footer">
+        <span>Good luck out there.</span>
+        <span>♠ ♥ ♦ ♣</span>
+      </footer>
+    </main>
+  </body>
+</html>
